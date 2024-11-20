@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Customer Churn"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Jialin Wen (jw4651)
+    - Zirui Zhou (zz3266)
+  repo-url: https://github.com/jw4651/churn
   date: today
   page-footer:
     right: |
