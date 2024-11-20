@@ -41,9 +41,9 @@ missing_plot <- gg_miss_var(merged_data) +
   ggtitle("Missing Values by Variable") +
   theme_minimal(base_size = 5) +
   theme(
-    axis.text.y = element_text(size = 4), # Smaller text for y-axis labels
-    axis.text.x = element_text(size = 6), # Adjust x-axis text size
-    plot.title = element_text(hjust = 0.5, size = 9) # Center and resize title
+    axis.text.y = element_text(size = 4),
+    axis.text.x = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5, size = 9) 
   ) +
   labs(x = "Variables", y = "# Missing")
 
