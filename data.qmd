@@ -1,5 +1,4 @@
 # Data
-
 ## Description   
 This project uses a dataset provided by IBM’s Accelerator Catalog, which tracks customer churn for a fictional telecommunications company. The dataset is a combination of multiple files that include demographic information, geographic data, service usage details, customer satisfaction scores, and churn status. These data were generated to simulate realistic business scenarios, allowing for exploratory analysis and modeling. Each file is in CSV format, and data are structured with rows representing individual customers and columns capturing various attributes. The dataset is static, meaning it does not receive updates, and its dimensions vary across files, ranging from a few hundred to several thousand rows. Potential issues include missing values in certain columns and the presence of overlapping information across files, requiring careful merging and cleaning. Data were imported into R using the `read_csv()` function for initial inspection and processing. The dataset is publicly available via IBM’s [Accelerator Catalog](https://accelerator.ca.analytics.ibm.com/), which provides detailed documentation of its structure and purpose.    
 
@@ -46,7 +45,6 @@ missing_plot <- gg_miss_var(merged_data) +
     plot.title = element_text(hjust = 0.5, size = 9) # Center and resize title
   ) +
   labs(x = "Variables", y = "# Missing")
-
 print(missing_plot)
 
 gg_miss_upset(merged_data)
