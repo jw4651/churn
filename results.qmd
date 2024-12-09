@@ -1,1 +1,151 @@
 # Results
+
+```{r}
+# Set repository
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# Install packages
+install.packages(c("dplyr", "readr", "naniar", "ggplot2"))
+```
+
+
+```{r}
+# Load libraries
+library(dplyr)
+library(readr)
+library(naniar)
+library(ggplot2)
+
+```
+
+```{r}
+merged_data <- readRDS("merged_data.rds")
+cleaned_data <- merged_data %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), median(., na.rm = TRUE), .))) %>%
+  filter(!is.na(`Churn Category`))
+```
+
+```{r}
+colnames(cleaned_data)
+```
+
+
+```{r}
+ggplot(cleaned_data, aes(x = `Churn Category`)) +
+  geom_bar(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Churn Categories", x = "Churn Category", y = "Count") +
+  theme_minimal()
+
+ggplot(cleaned_data, aes(x = `Churn Reason`)) +
+  geom_bar(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Churn Reasons", x = "Churn Reason", y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+# Internet Type vs Churn
+ggplot(cleaned_data, aes(x = `Internet Type`, fill = `Churn Category`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Internet Type vs Churn", x = "Internet Type", y = "Proportion") +
+  theme_minimal()
+
+# Contract Type vs Churn
+ggplot(cleaned_data, aes(x = `Contract.y`, fill = `Churn Category`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Contract Type vs Churn", x = "Contract Type", y = "Proportion") +
+  theme_minimal()
+
+# Unlimited Data vs Churn
+ggplot(cleaned_data, aes(x = `Unlimited Data`, fill = `Churn Category`)) +
+  geom_bar(position = "fill") +
+  labs(title = "Unlimited Data vs Churn", x = "Unlimited Data", y = "Proportion") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(cleaned_data, aes(x = `Monthly Charges`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ `Internet Type`) +
+  labs(
+    title = "Monthly Charges vs Churn Category by Internet Type",
+    x = "Monthly Charges",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+# Contract vs Tenure vs Churn Category
+ggplot(cleaned_data, aes(x = `Tenure in Months`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ `Contract.y`) +
+  labs(
+    title = "Tenure in Months vs Churn Category by Contract Type",
+    x = "Tenure in Months",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(cleaned_data, aes(x = `Avg Monthly GB Download`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ `Unlimited Data`) +
+  labs(
+    title = "Avg Monthly GB Download vs Churn Category by Unlimited Data",
+    x = "Avg Monthly GB Download",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(cleaned_data, aes(x = `Satisfaction Score`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ `Internet Type`) +
+  labs(
+    title = "Satisfaction Score vs Churn Category by Internet Type",
+    x = "Satisfaction Score",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(cleaned_data, aes(x = `Avg Monthly GB Download`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Avg Monthly GB Download vs Churn", x = "Avg Monthly GB Download", y = "Density") +
+  theme_minimal()
+
+ggplot(cleaned_data, aes(x = `Monthly Charge`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Monthly Charge vs Churn", x = "Monthly Charge", y = "Density") +
+  theme_minimal()
+
+ggplot(cleaned_data, aes(x = `Tenure in Months`, fill = `Churn Category`)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Tenure in Months vs Churn", x = "Tenure in Months", y = "Density") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(cleaned_data, aes(x = City, fill = `Churn Category`)) +
+  geom_bar(position = "fill") +
+  coord_flip() +
+  labs(title = "City vs Churn", x = "City", y = "Proportion") +
+  theme_minimal()
+
+ggplot(cleaned_data, aes(x = State, fill = `Churn Category`)) +
+  geom_bar(position = "fill") +
+  labs(title = "State vs Churn", x = "State", y = "Proportion") +
+  theme_minimal()
+
+```
+

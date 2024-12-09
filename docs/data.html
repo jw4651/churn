@@ -242,7 +242,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(status, <span class="at">by =</span> <span class="st">"Customer ID"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(population, <span class="at">by =</span> <span class="st">"Zip Code"</span>)</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(merged_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(merged_data, <span class="st">"merged_data.rds"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(merged_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 81
@@ -271,9 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-
-    /var/folders/v2/0blw80311tz5m_zpg688cl680000gn/T//RtmpIzzWSi/downloaded_packages</code></pre>
-
+    /var/folders/v2/0blw80311tz5m_zpg688cl680000gn/T//RtmpyBL4pN/downloaded_packages</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
