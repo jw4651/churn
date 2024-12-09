@@ -27,7 +27,6 @@ merged_data <- cc %>%
   left_join(population, by = "Zip Code")
 
 saveRDS(merged_data, "merged_data.rds")
-head(merged_data)
 ```
 
 ```{r message=FALSE}
