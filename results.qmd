@@ -15,7 +15,7 @@ library(dplyr)
 library(readr)
 library(naniar)
 library(ggplot2)
-
+library(forcats)
 ```
 
 ```{r}
@@ -31,17 +31,24 @@ colnames(cleaned_data)
 
 
 ```{r}
-ggplot(cleaned_data, aes(x = `Churn Category`)) +
+ggplot(cleaned_data, aes(x = fct_infreq(`Churn Category`))) +
   geom_bar(fill = "steelblue", color = "black") +
   labs(title = "Distribution of Churn Categories", x = "Churn Category", y = "Count") +
   theme_minimal()
+```
+From the barplot for Churn Category, we can see that the biggest category is competitor, which is way higher in count than all of the other categories. It suggests that the most reason for customer churn is related to the competition among businesses. We can further verify this by checking the frequency for the specific reasons for customer churn as follows.
 
-ggplot(cleaned_data, aes(x = `Churn Reason`)) +
+```{r}
+cleaned_data$`Churn Reason_lumped` <- fct_lump_n(
+  cleaned_data$`Churn Reason`, n=12, other_level = 'Other')
+
+ggplot(cleaned_data, aes(x = fct_infreq(`Churn Reason_lumped`))) +
   geom_bar(fill = "steelblue", color = "black") +
   labs(title = "Distribution of Churn Reasons", x = "Churn Reason", y = "Count") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+  theme(axis.text.x = element_text(angle = 65, hjust = 1))
 ```
+Since we have many unique reasons in Churn Reason variable, we used lump to show the most 12 frequent reasons in the graph, and the rest of the reasons fall into reason other. From the graph, we can see that there are 4 competitor related reasons in the most 7 frequent reasons, including better devices, better offer, more data, and higher download speeds. Attitude of support person and provider are also frequent reasons, which is in accordance with the graph for Churn category.
+
 
 ```{r}
 # Internet Type vs Churn
