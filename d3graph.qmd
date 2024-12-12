@@ -7,6 +7,10 @@
 </style> 
 
 <div id="plot">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="scripts/myscript.js"></script>
 ```{r}
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("plotly")
@@ -36,7 +40,4 @@ plot_ly(
 ```
 
 
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="scripts/myscript.js"></script>
