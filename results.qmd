@@ -25,18 +25,20 @@ cleaned_data <- merged_data %>%
   filter(!is.na(`Churn Category`))
 ```
 
+ After cleaning the data by removing missing values in `Churn Category`, let's have a look in the columns in the dataset.
 ```{r}
 colnames(cleaned_data)
 ```
+Notice that there are too many columns in the data, we will only employ several useful variables in or exploratory data analysis.
 
-
+First, let's use barplots to have a look into the distributions of `Churn Category` and `Churn Reason`.
 ```{r}
 ggplot(cleaned_data, aes(x = fct_infreq(`Churn Category`))) +
   geom_bar(fill = "steelblue", color = "black") +
   labs(title = "Distribution of Churn Categories", x = "Churn Category", y = "Count") +
   theme_minimal()
 ```
-From the barplot for Churn Category, we can see that the biggest category is competitor, which is way higher in count than all of the other categories. It suggests that the most reason for customer churn is related to the competition among businesses. We can further verify this by checking the frequency for the specific reasons for customer churn as follows.
+From the barplot for `Churn Category`, we can see that the biggest category is competitor, which is way higher in count than all of the other categories. It suggests that the most reason for customer churn is related to the competition among businesses. We can further verify this by checking the frequency for the specific reasons for customer churn as follows.
 
 ```{r}
 cleaned_data$`Churn Reason_lumped` <- fct_lump_n(
@@ -47,9 +49,10 @@ ggplot(cleaned_data, aes(x = fct_infreq(`Churn Reason_lumped`))) +
   labs(title = "Distribution of Churn Reasons", x = "Churn Reason", y = "Count") +
   theme(axis.text.x = element_text(angle = 65, hjust = 1))
 ```
-Since we have many unique reasons in Churn Reason variable, we used lump to show the most 12 frequent reasons in the graph, and the rest of the reasons fall into reason other. From the graph, we can see that there are 4 competitor related reasons in the most 7 frequent reasons, including better devices, better offer, more data, and higher download speeds. Attitude of support person and provider are also frequent reasons, which is in accordance with the graph for Churn category.
+Since we have many unique reasons in `Churn Reason` variable, we used lump to show the most 12 frequent reasons in the graph, and the rest of the reasons fall into reason other. From the graph, we can see that there are 4 competitor related reasons in the most 7 frequent reasons, including better devices, better offer, more data, and higher download speeds. Attitude of support person and provider are also frequent reasons, which is in accordance with the graph for `Churn Category`.
 
 
+Now, let's introduce three important factors into discussion: `Internet Type`, `Contract Type`, and `Unlimited Data` (Yes or No). In hypothesis, one's churn reason may be influenced by a company's plan. We will create 3 stacked bar charts to see how `Churn Category` is influenced by those 3 factors.
 ```{r}
 # Internet Type vs Churn
 ggplot(cleaned_data, aes(x = `Internet Type`, fill = `Churn Category`)) +
@@ -70,6 +73,8 @@ ggplot(cleaned_data, aes(x = `Unlimited Data`, fill = `Churn Category`)) +
   theme_minimal()
 
 ```
+From the 3 stacked bar charts, we can see that for most of the plans, competitor is the most category for a customer to churn. This suggests that no matter for what plans a customer is paying, they would all check other companies' plans and switch to the other if they find it more favorable. However, there is one exception: when customers choose to have None for internet type, supporter's or provider's attitudes tend to be the most reason for their churn. Price also becomes a better reason than competitor. This suggests that customers who do not care about internet in their service may pay more attention to service attitude and prices.
+
 
 ```{r}
 ggplot(cleaned_data, aes(x = `Monthly Charges`, fill = `Churn Category`)) +
