@@ -8,6 +8,7 @@
 
 <div id="plot">
 ```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("plotly")
 
 library(ggplot2)
