@@ -30,6 +30,8 @@ saveRDS(merged_data, "merged_data.rds")
 ```
 
 ```{r message=FALSE}
+#| warning: false
+#| message: false
 install.packages("naniar")
 library(naniar)
 library(ggplot2)
