@@ -7,6 +7,34 @@
 </style> 
 
 <div id="plot">
+```{r}
+install.packages("plotly")
+
+library(ggplot2)
+library(plotly)
+library(forcats)
+library(dplyr)
+
+merged_data <- readRDS("merged_data.rds")
+cleaned_data <- merged_data %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), median(., na.rm = TRUE), .))) %>%
+  filter(!is.na(`Churn Category`))
+
+plot_ly(
+  cleaned_data,
+  x = ~`Churn Category`,
+  type = "histogram",
+  marker = list(color = "steelblue", line = list(color = "black", width = 1))
+) %>%
+  layout(
+    title = "Distribution of Churn Categories",
+    xaxis = list(title = "Churn Category"),
+    yaxis = list(title = "Count")
+  )
+
+```
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
