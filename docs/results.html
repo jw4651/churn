@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"readr"</span>, <span class="st">"naniar"</span>, <span class="st">"ggplot2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>Installing packages into 'C:/Users/langs/AppData/Local/R/win-library/4.4'
+<pre><code>Installing packages into 'C:/Users/zirui/AppData/Local/R/win-library/4.4'
 (as 'lib' is unspecified)</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -224,8 +224,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-C:\Users\langs\AppData\Local\R\win-library\4.4\00LOCK\dplyr\libs\x64\dplyr.dll
-to C:\Users\langs\AppData\Local\R\win-library\4.4\dplyr\libs\x64\dplyr.dll:
+C:\Users\zirui\AppData\Local\R\win-library\4.4\00LOCK\dplyr\libs\x64\dplyr.dll
+to C:\Users\zirui\AppData\Local\R\win-library\4.4\dplyr\libs\x64\dplyr.dll:
 Permission denied</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -239,8 +239,8 @@ Permission denied</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-C:\Users\langs\AppData\Local\R\win-library\4.4\00LOCK\readr\libs\x64\readr.dll
-to C:\Users\langs\AppData\Local\R\win-library\4.4\readr\libs\x64\readr.dll:
+C:\Users\zirui\AppData\Local\R\win-library\4.4\00LOCK\readr\libs\x64\readr.dll
+to C:\Users\zirui\AppData\Local\R\win-library\4.4\readr\libs\x64\readr.dll:
 Permission denied</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -251,7 +251,7 @@ Permission denied</code></pre>
 package 'ggplot2' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\langs\AppData\Local\Temp\RtmpsFzd1T\downloaded_packages</code></pre>
+    C:\Users\zirui\AppData\Local\Temp\RtmpgjbMRD\downloaded_packages</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -450,6 +450,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>“Monthly Charges vs Churn Category by Internet Type” provides insights into how the monthly charges for different internet service types (Cable and DSL) vary across different churn categories. From the graph, we can observe that for Cable internet, the monthly charges are relatively flat across the different churn categories, with a slight increase for the “Fiber Optic” internet type. The monthly charges for Cable internet customers range from around 0.1 to 0.3, with the “Fiber Optic” category having the highest charges. For DSL internet, the monthly charges show more variation across the churn categories. The “None” category, which likely represents customers who do not churn, has the highest monthly charges, reaching around 1.5. The “Competitor” category, which represents customers who churn due to competition, has the lowest monthly charges, around 0.1. The other churn categories, such as “Attitude,” “Dissatisfaction,” and “Price,” fall in between, with charges ranging from around 0.2 to 0.6. This suggests that for DSL internet customers, the monthly charges are closely linked to the churn category, with higher charges corresponding to the “None” category (non-churning customers) and lower charges associated with the “Competitor” category (customers who churn due to competition). This information could be valuable for the telecommunications company to understand how pricing strategies and service offerings might impact customer churn across different internet service types. By analyzing the relationship between monthly charges and churn categories, the company can potentially develop more targeted pricing and retention strategies to address the specific factors driving customer churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -479,6 +480,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>The graph titled “Tenure in Months vs Churn Category by Contract Type” provides valuable insights into the relationship between customer tenure and churn categories across different contract types. For the “Month-to-Month” contract, we see a wide distribution of tenure, with a peak around 10 months, indicating that many customers churn within the first year. The “One Year” contract shows a more concentrated distribution, with a peak around 12 months, suggesting customers are more likely to remain for the duration of their contract. The “Two Year” contract exhibits a bimodal distribution, with one peak around 24 months and another around 2-3 months, indicating that some customers fulfill their contract while others churn early. The different churn categories, such as “Attitude,” “Competitor,” “Dissatisfaction,” and “Price,” are represented in varying degrees across the tenure distributions, providing the telecommunications company with insights to develop targeted retention strategies based on contract length and the underlying reasons for customer churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -500,6 +502,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>The graph titled “Avg Monthly GB Download vs Churn Category by Unlimited Data” provides insights into the relationship between average monthly data usage and customer churn categories, based on whether the customer has an unlimited data plan or not. For customers without unlimited data, we see a wide distribution of average monthly data usage, with the churn categories “Competitor” and “Dissatisfaction” having the highest data usage, indicating that these customers may be more likely to churn due to reaching data caps or experiencing slower speeds. In contrast, for customers with unlimited data plans, the distribution of average monthly data usage is much more concentrated, and the churn categories are more evenly distributed across the data usage range, suggesting that for unlimited data customers, factors beyond data usage, such as network reliability, customer service, and perceived value, may play a more significant role in their decision to churn. This information can help the telecommunications company better understand the drivers of customer churn and develop targeted retention strategies.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -521,6 +524,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>The graph titled “Satisfaction Score vs Churn Category by Internet Type” provides an insightful look into the relationship between customer satisfaction and the reasons for customer churn across different internet service types. For Cable internet customers, the satisfaction scores show a bimodal distribution, with peaks around 0.5 and 1.0. The “Fiber Optic” category exhibits the highest satisfaction scores, while the “None” category (likely representing non-churning customers) also has relatively high satisfaction. In contrast, the “Competitor” and “Dissatisfaction” categories show lower satisfaction scores, indicating that these factors play a significant role in driving churn for Cable customers. The DSL internet customers present a different pattern, with the “None” category again showing the highest satisfaction scores, peaking around 1.0. The other churn categories, such as “Attitude,” “Competitor,” and “Price,” have more varied satisfaction distributions, suggesting that for DSL customers, the reasons for churn are more complex and not solely driven by satisfaction. This information can help the telecommunications company better understand the nuances of customer satisfaction and its relationship to churn across their different internet service offerings. By analyzing these insights, the company can develop more targeted retention strategies to address the specific factors influencing customer loyalty and churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -565,6 +569,11 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>The three graphs reveal interesting insights about churn behavior based on three factors: average monthly download (GB), monthly charge, and tenure in months, each categorized by churn reason.</p>
+<p>In the first graph, “Avg Monthly GB Download vs Churn,” we see that users who churn for “Competitor” reasons tend to have higher average monthly data downloads, with a peak around 50 GB. “Attitude” and “Dissatisfaction” reasons appear to be associated with much lower average downloads, with densities peaking around 10 GB and below. This suggests that customers who are dissatisfied with their service or have a poor attitude toward support may not be heavy data users. “Price” and “Other” categories show an intermediate distribution, with price-sensitive customers likely using moderate data.</p>
+<p>The second graph, “Monthly Charge vs Churn,” highlights a similar trend. Customers in the “Competitor” category are more likely to churn when their monthly charges are higher, with the peak density around $60-$80. This indicates that competitors offering better prices or more attractive plans are more appealing to higher-paying customers. On the other hand, those who churn due to “Dissatisfaction” or “Price” tend to have lower charges, with the “Price” category peaking around $40. The “Attitude” category shows a spread of monthly charges but leans more toward lower values, suggesting that attitude-related churn may not be heavily influenced by cost.</p>
+<p>Lastly, in the third graph, “Tenure in Months vs Churn,” we observe that customers with shorter tenures are more likely to churn for “Competitor” reasons, peaking within the first 12 months. This suggests that competitors are capturing newer customers, likely offering them more attractive deals. Meanwhile, those who churn due to “Dissatisfaction” and “Attitude” show more consistent churn densities across various tenures, peaking at around 20-30 months. This could indicate that dissatisfaction and negative attitudes build over time rather than being tied to a specific stage in the customer’s journey. “Price” and “Other” categories display lower churn densities, especially at longer tenures, indicating that these reasons may be less influential as customers continue using the service.</p>
+<p>In summary, the churn patterns reveal that “Competitor” is primarily driven by higher usage, charges, and shorter tenures, while “Dissatisfaction” and “Attitude” appear to correlate with lower usage, charges, and longer customer relationships. “Price” and “Other” reasons seem to be more evenly distributed across usage and tenure, reflecting more complex and less easily categorized reasons for churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -596,6 +605,9 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
+<p>The two barplots provide insights into churn categories across cities and states. The first graph, “City vs Churn,” shows the proportion of each churn category for various cities. From this graph, we can observe that “Competitor” churn is quite widespread across many cities, with proportions close to 1 in several cities. However, cities such as “La Cruz” and “Hollis” show a more varied distribution, with churn reasons like “Attitude” and “Price” taking more prominence. This indicates that while competitor-related churn dominates in many locations, other reasons such as dissatisfaction or price issues are more significant in certain areas, highlighting regional variations in the reasons behind customer churn.</p>
+<p>The second graph, “State vs Churn,” is focused on the state of California. It reveals that all churn categories—“Attitude,” “Competitor,” “Dissatisfaction,” “Other,” and “Price”—are relatively evenly distributed in California, though “Competitor” churn seems the most common, followed by “Attitude.” This barplot suggests that churn in California may not be as dominated by one specific category as it is in some cities. Instead, the distribution of churn reasons here appears to be more balanced, with several factors contributing to customer churn at similar proportions.</p>
+<p>Together, these graphs suggest that while competition-related churn is a dominant factor across both cities and states, regional variations exist in churn reasons. In some cities, factors such as attitude or price issues may play a more substantial role in driving churn, while in California, churn seems to be driven by a more balanced set of reasons. This insight could help businesses tailor their strategies depending on regional differences in customer behavior.</p>
 
 
 
