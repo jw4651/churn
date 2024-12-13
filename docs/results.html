@@ -178,8 +178,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#related-packages-and-data" id="toc-related-packages-and-data" class="nav-link active" data-scroll-target="#related-packages-and-data"><span class="header-section-number">3.1</span> Related Packages and Data</a></li>
+  <li><a href="#distribution-of-churn" id="toc-distribution-of-churn" class="nav-link" data-scroll-target="#distribution-of-churn"><span class="header-section-number">3.2</span> Distribution of Churn</a></li>
+  <li><a href="#influences-on-churn-categories" id="toc-influences-on-churn-categories" class="nav-link" data-scroll-target="#influences-on-churn-categories"><span class="header-section-number">3.3</span> Influences on Churn Categories</a></li>
+  <li><a href="#service-related-variables-and-churn" id="toc-service-related-variables-and-churn" class="nav-link" data-scroll-target="#service-related-variables-and-churn"><span class="header-section-number">3.4</span> Service Related Variables and Churn</a></li>
+  <li><a href="#geographic-variables-and-churn" id="toc-geographic-variables-and-churn" class="nav-link" data-scroll-target="#geographic-variables-and-churn"><span class="header-section-number">3.5</span> Geographic Variables and Churn</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/jw4651/churn/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/jw4651/churn/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -203,6 +213,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="related-packages-and-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="related-packages-and-data"><span class="header-section-number">3.1</span> Related Packages and Data</h2>
+<p>Before we start, let’s install related packages and clean the dataset to make our exploratory process easier.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -212,76 +225,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"readr"</span>, <span class="st">"naniar"</span>, <span class="st">"ggplot2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing packages into 'C:/Users/zirui/AppData/Local/R/win-library/4.4'
-(as 'lib' is unspecified)</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>package 'dplyr' successfully unpacked and MD5 sums checked</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: cannot remove prior installation of package 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-C:\Users\zirui\AppData\Local\R\win-library\4.4\00LOCK\dplyr\libs\x64\dplyr.dll
-to C:\Users\zirui\AppData\Local\R\win-library\4.4\dplyr\libs\x64\dplyr.dll:
-Permission denied</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: restored 'dplyr'</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'readr' successfully unpacked and MD5 sums checked</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>package 'readr' successfully unpacked and MD5 sums checked
-package 'naniar' successfully unpacked and MD5 sums checked
+<pre><code>package 'naniar' successfully unpacked and MD5 sums checked
 package 'ggplot2' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\zirui\AppData\Local\Temp\Rtmpu4k5dD\downloaded_packages</code></pre>
+    C:\Users\langs\AppData\Local\Temp\RtmpA3nnw4\downloaded_packages</code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"merged_data.rds"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cleaned_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(.), <span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>), .))) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"merged_data.rds"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cleaned_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(.), <span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>), .))) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>After cleaning the data by removing missing values in <code>Churn Category</code>, let’s have a look in the columns in the dataset.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cleaned_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cleaned_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "LoyaltyID"                         "Customer ID"                      
@@ -328,14 +310,17 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 <p>Notice that there are too many columns in the data, we will only employ several useful variables in or exploratory data analysis.</p>
+</section>
+<section id="distribution-of-churn" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="distribution-of-churn"><span class="header-section-number">3.2</span> Distribution of Churn</h2>
 <p>First, let’s use barplots to have a look into the distributions of <code>Churn Category</code> and <code>Churn Reason</code>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(<span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>))) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Churn Categories"</span>, <span class="at">x =</span> <span class="st">"Churn Category"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(<span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>))) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Churn Categories"</span>, <span class="at">x =</span> <span class="st">"Churn Category"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -349,13 +334,13 @@ Attaching package: 'dplyr'</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cleaned_data<span class="sc">$</span><span class="st">`</span><span class="at">Churn Reason_lumped</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">fct_lump_n</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  cleaned_data<span class="sc">$</span><span class="st">`</span><span class="at">Churn Reason</span><span class="st">`</span>, <span class="at">n=</span><span class="dv">12</span>, <span class="at">other_level =</span> <span class="st">'Other'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(<span class="st">`</span><span class="at">Churn Reason_lumped</span><span class="st">`</span>))) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Churn Reasons"</span>, <span class="at">x =</span> <span class="st">"Churn Reason"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">65</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cleaned_data<span class="sc">$</span><span class="st">`</span><span class="at">Churn Reason_lumped</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">fct_lump_n</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  cleaned_data<span class="sc">$</span><span class="st">`</span><span class="at">Churn Reason</span><span class="st">`</span>, <span class="at">n=</span><span class="dv">12</span>, <span class="at">other_level =</span> <span class="st">'Other'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(<span class="st">`</span><span class="at">Churn Reason_lumped</span><span class="st">`</span>))) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Churn Reasons"</span>, <span class="at">x =</span> <span class="st">"Churn Reason"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">65</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -366,15 +351,18 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 <p>Since we have many unique reasons in <code>Churn Reason</code> variable, we used lump to show the most 12 frequent reasons in the graph, and the rest of the reasons fall into reason other. From the graph, we can see that there are 4 competitor related reasons in the most 7 frequent reasons, including better devices, better offer, more data, and higher download speeds. Attitude of support person and provider are also frequent reasons, which is in accordance with the graph for <code>Churn Category</code>.</p>
+</section>
+<section id="influences-on-churn-categories" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="influences-on-churn-categories"><span class="header-section-number">3.3</span> Influences on Churn Categories</h2>
 <p>Now, let’s introduce three important factors into discussion: <code>Internet Type</code>, <code>Contract Type</code>, and <code>Unlimited Data</code> (Yes or No). In hypothesis, one’s churn reason may be influenced by a company’s plan. We will create 3 stacked bar charts to see how <code>Churn Category</code> is influenced by those 3 factors.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Internet Type vs Churn</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Internet Type</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Internet Type vs Churn"</span>, <span class="at">x =</span> <span class="st">"Internet Type"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Internet Type vs Churn</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Internet Type</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Internet Type vs Churn"</span>, <span class="at">x =</span> <span class="st">"Internet Type"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -385,11 +373,11 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contract Type vs Churn</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Contract.y</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Contract Type vs Churn"</span>, <span class="at">x =</span> <span class="st">"Contract Type"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contract Type vs Churn</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Contract.y</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Contract Type vs Churn"</span>, <span class="at">x =</span> <span class="st">"Contract Type"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -400,11 +388,11 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlimited Data vs Churn</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Unlimited Data</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Unlimited Data vs Churn"</span>, <span class="at">x =</span> <span class="st">"Unlimited Data"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlimited Data vs Churn</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Unlimited Data</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Unlimited Data vs Churn"</span>, <span class="at">x =</span> <span class="st">"Unlimited Data"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -415,18 +403,22 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 <p>From the 3 stacked bar charts, we can see that for most of the plans, competitor is the most category for a customer to churn. This suggests that no matter for what plans a customer is paying, they would all check other companies’ plans and switch to the other if they find it more favorable. However, there is one exception: when customers choose to have None for internet type, supporter’s or provider’s attitudes tend to be the most reason for their churn. Price also becomes a better reason than competitor. This suggests that customers who do not care about internet in their service may pay more attention to service attitude and prices.</p>
+</section>
+<section id="service-related-variables-and-churn" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="service-related-variables-and-churn"><span class="header-section-number">3.4</span> Service Related Variables and Churn</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Monthly Charges</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Internet Type</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Monthly Charges vs Churn Category by Internet Type"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Monthly Charges"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contract vs Tenure vs Churn Category</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Tenure in Months</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Contract.y</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tenure in Months vs Churn Category by Contract Type"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tenure in Months"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -436,28 +428,20 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
-<p>“Monthly Charges vs Churn Category by Internet Type” provides insights into how the monthly charges for different internet service types (Cable and DSL) vary across different churn categories. From the graph, we can observe that for Cable internet, the monthly charges are relatively flat across the different churn categories, with a slight increase for the “Fiber Optic” internet type. The monthly charges for Cable internet customers range from around 0.1 to 0.3, with the “Fiber Optic” category having the highest charges. For DSL internet, the monthly charges show more variation across the churn categories. The “None” category, which likely represents customers who do not churn, has the highest monthly charges, reaching around 1.5. The “Competitor” category, which represents customers who churn due to competition, has the lowest monthly charges, around 0.1. The other churn categories, such as “Attitude,” “Dissatisfaction,” and “Price,” fall in between, with charges ranging from around 0.2 to 0.6. This suggests that for DSL internet customers, the monthly charges are closely linked to the churn category, with higher charges corresponding to the “None” category (non-churning customers) and lower charges associated with the “Competitor” category (customers who churn due to competition). This information could be valuable for the telecommunications company to understand how pricing strategies and service offerings might impact customer churn across different internet service types. By analyzing the relationship between monthly charges and churn categories, the company can potentially develop more targeted pricing and retention strategies to address the specific factors driving customer churn.</p>
+<p>The graph titled “Tenure in Months vs Churn Category by Contract Type” provides valuable insights into the relationship between customer tenure and churn categories across different contract types. For the “Month-to-Month” contract, we see a wide distribution of tenure, with a peak around 10 months, indicating that many customers churn within the first year. The “One Year” contract shows a more concentrated distribution, with a peak above 40 months, suggesting customers are more likely to remain for the duration of their contract. The “Two Year” contract exhibits a bimodal distribution, with one peak around 24 months and another around 2-3 months, indicating that some customers fulfill their contract while others churn early. The different churn categories, such as “Attitude,” “Competitor,” “Dissatisfaction,” and “Price,” are represented in varying degrees across the tenure distributions, providing the telecommunications company with insights to develop targeted retention strategies based on contract length and the underlying reasons for customer churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contract vs Tenure vs Churn Category</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Tenure in Months</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Contract.y</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Tenure in Months vs Churn Category by Contract Type"</span>,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tenure in Months"</span>,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Avg Monthly GB Download</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Unlimited Data</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Avg Monthly GB Download vs Churn Category by Unlimited Data"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Avg Monthly GB Download"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Groups with fewer than two data points have been dropped.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
--Inf</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -466,19 +450,19 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
-<p>The graph titled “Tenure in Months vs Churn Category by Contract Type” provides valuable insights into the relationship between customer tenure and churn categories across different contract types. For the “Month-to-Month” contract, we see a wide distribution of tenure, with a peak around 10 months, indicating that many customers churn within the first year. The “One Year” contract shows a more concentrated distribution, with a peak around 12 months, suggesting customers are more likely to remain for the duration of their contract. The “Two Year” contract exhibits a bimodal distribution, with one peak around 24 months and another around 2-3 months, indicating that some customers fulfill their contract while others churn early. The different churn categories, such as “Attitude,” “Competitor,” “Dissatisfaction,” and “Price,” are represented in varying degrees across the tenure distributions, providing the telecommunications company with insights to develop targeted retention strategies based on contract length and the underlying reasons for customer churn.</p>
+<p>The graph titled “Avg Monthly GB Download vs Churn Category by Unlimited Data” provides insights into the relationship between average monthly data usage and customer churn categories, based on whether the customer has an unlimited data plan or not. For customers without unlimited data, we see a wide distribution of average monthly data usage, with the churn categories “Competitor” and “Dissatisfaction” having the highest data usage, indicating that these customers may be more likely to churn due to reaching data caps or experiencing slower speeds. In contrast, for customers with unlimited data plans, the distribution of average monthly data usage is much more concentrated, and the churn categories are more evenly distributed across the data usage range, suggesting that for unlimited data customers, factors beyond data usage, such as network reliability, customer service, and perceived value, may play a more significant role in their decision to churn. This information can help the telecommunications company better understand the drivers of customer churn and develop targeted retention strategies.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Avg Monthly GB Download</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Unlimited Data</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Avg Monthly GB Download vs Churn Category by Unlimited Data"</span>,</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Avg Monthly GB Download"</span>,</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Satisfaction Score</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Internet Type</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Satisfaction Score vs Churn Category by Internet Type"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Satisfaction Score"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -488,19 +472,14 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 </div>
-<p>The graph titled “Avg Monthly GB Download vs Churn Category by Unlimited Data” provides insights into the relationship between average monthly data usage and customer churn categories, based on whether the customer has an unlimited data plan or not. For customers without unlimited data, we see a wide distribution of average monthly data usage, with the churn categories “Competitor” and “Dissatisfaction” having the highest data usage, indicating that these customers may be more likely to churn due to reaching data caps or experiencing slower speeds. In contrast, for customers with unlimited data plans, the distribution of average monthly data usage is much more concentrated, and the churn categories are more evenly distributed across the data usage range, suggesting that for unlimited data customers, factors beyond data usage, such as network reliability, customer service, and perceived value, may play a more significant role in their decision to churn. This information can help the telecommunications company better understand the drivers of customer churn and develop targeted retention strategies.</p>
+<p>The graph titled “Satisfaction Score vs Churn Category by Internet Type” provides an insightful look into the relationship between customer satisfaction and the reasons for customer churn across different internet service types. For Cable internet customers, the satisfaction scores show a bimodal distribution, with peaks around 0.5 and 1.0. The “Fiber Optic” category exhibits the highest satisfaction scores, while the “None” category (likely representing non-churning customers) also has relatively high satisfaction. In contrast, the “Competitor” and “Dissatisfaction” categories show lower satisfaction scores, indicating that these factors play a significant role in driving churn for Cable customers. The DSL internet customers present a different pattern, with the “None” category again showing the highest satisfaction scores, peaking around 1.0. The other churn categories, such as “Attitude,” “Competitor,” and “Price,” have more varied satisfaction distributions, suggesting that for DSL customers, the reasons for churn are more complex and not solely driven by satisfaction. This information can help the telecommunications company better understand the nuances of customer satisfaction and its relationship to churn across their different internet service offerings. By analyzing these insights, the company can develop more targeted retention strategies to address the specific factors influencing customer loyalty and churn.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Satisfaction Score</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Internet Type</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Satisfaction Score vs Churn Category by Internet Type"</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Satisfaction Score"</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Avg Monthly GB Download</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Avg Monthly GB Download vs Churn"</span>, <span class="at">x =</span> <span class="st">"Avg Monthly GB Download"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -509,15 +488,51 @@ Attaching package: 'dplyr'</code></pre>
 </figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Monthly Charge</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Charge vs Churn"</span>, <span class="at">x =</span> <span class="st">"Monthly Charge"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>The graph titled “Satisfaction Score vs Churn Category by Internet Type” provides an insightful look into the relationship between customer satisfaction and the reasons for customer churn across different internet service types. For Cable internet customers, the satisfaction scores show a bimodal distribution, with peaks around 0.5 and 1.0. The “Fiber Optic” category exhibits the highest satisfaction scores, while the “None” category (likely representing non-churning customers) also has relatively high satisfaction. In contrast, the “Competitor” and “Dissatisfaction” categories show lower satisfaction scores, indicating that these factors play a significant role in driving churn for Cable customers. The DSL internet customers present a different pattern, with the “None” category again showing the highest satisfaction scores, peaking around 1.0. The other churn categories, such as “Attitude,” “Competitor,” and “Price,” have more varied satisfaction distributions, suggesting that for DSL customers, the reasons for churn are more complex and not solely driven by satisfaction. This information can help the telecommunications company better understand the nuances of customer satisfaction and its relationship to churn across their different internet service offerings. By analyzing these insights, the company can develop more targeted retention strategies to address the specific factors influencing customer loyalty and churn.</p>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Tenure in Months</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tenure in Months vs Churn"</span>, <span class="at">x =</span> <span class="st">"Tenure in Months"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The three graphs reveal interesting insights about churn behavior based on three factors: average monthly download (GB), monthly charge, and tenure in months, each categorized by churn reason.</p>
+<p>In the first graph, “Avg Monthly GB Download vs Churn,” we see that users who churn for “Competitor” reasons tend to have higher average monthly data downloads, with a peak around 50 GB. “Attitude” and “Dissatisfaction” reasons appear to be associated with much lower average downloads, with densities peaking around 10 GB and below. This suggests that customers who are dissatisfied with their service or have a poor attitude toward support may not be heavy data users. “Price” and “Other” categories show an intermediate distribution, with price-sensitive customers likely using moderate data.</p>
+<p>The second graph, “Monthly Charge vs Churn,” highlights a similar trend. Customers in the “Competitor” category are more likely to churn when their monthly charges are higher, with the peak density around $60-$80. This indicates that competitors offering better prices or more attractive plans are more appealing to higher-paying customers. On the other hand, those who churn due to “Dissatisfaction” or “Price” tend to have lower charges, with the “Price” category peaking around $40. The “Attitude” category shows a spread of monthly charges but leans more toward lower values, suggesting that attitude-related churn may not be heavily influenced by cost.</p>
+<p>Lastly, in the third graph, “Tenure in Months vs Churn,” we observe that customers with shorter tenures are more likely to churn for “Competitor” reasons, peaking within the first 12 months. This suggests that competitors are capturing newer customers, likely offering them more attractive deals. Meanwhile, those who churn due to “Dissatisfaction” and “Attitude” show more consistent churn densities across various tenures, peaking at around 20-30 months. This could indicate that dissatisfaction and negative attitudes build over time rather than being tied to a specific stage in the customer’s journey. “Price” and “Other” categories display lower churn densities, especially at longer tenures, indicating that these reasons may be less influential as customers continue using the service.</p>
+<p>In summary, the churn patterns reveal that “Competitor” is primarily driven by higher usage, charges, and shorter tenures, while “Dissatisfaction” and “Attitude” appear to correlate with lower usage, charges, and longer customer relationships. “Price” and “Other” reasons seem to be more evenly distributed across usage and tenure, reflecting more complex and less easily categorized reasons for churn.</p>
+</section>
+<section id="geographic-variables-and-churn" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="geographic-variables-and-churn"><span class="header-section-number">3.5</span> Geographic Variables and Churn</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Avg Monthly GB Download</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Avg Monthly GB Download vs Churn"</span>, <span class="at">x =</span> <span class="st">"Avg Monthly GB Download"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> City, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"City vs Churn"</span>, <span class="at">x =</span> <span class="st">"City"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -528,65 +543,15 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Monthly Charge</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Charge vs Churn"</span>, <span class="at">x =</span> <span class="st">"Monthly Charge"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> State, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"State vs Churn"</span>, <span class="at">x =</span> <span class="st">"State"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="results_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Tenure in Months</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tenure in Months vs Churn"</span>, <span class="at">x =</span> <span class="st">"Tenure in Months"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The three graphs reveal interesting insights about churn behavior based on three factors: average monthly download (GB), monthly charge, and tenure in months, each categorized by churn reason.</p>
-<p>In the first graph, “Avg Monthly GB Download vs Churn,” we see that users who churn for “Competitor” reasons tend to have higher average monthly data downloads, with a peak around 50 GB. “Attitude” and “Dissatisfaction” reasons appear to be associated with much lower average downloads, with densities peaking around 10 GB and below. This suggests that customers who are dissatisfied with their service or have a poor attitude toward support may not be heavy data users. “Price” and “Other” categories show an intermediate distribution, with price-sensitive customers likely using moderate data.</p>
-<p>The second graph, “Monthly Charge vs Churn,” highlights a similar trend. Customers in the “Competitor” category are more likely to churn when their monthly charges are higher, with the peak density around $60-$80. This indicates that competitors offering better prices or more attractive plans are more appealing to higher-paying customers. On the other hand, those who churn due to “Dissatisfaction” or “Price” tend to have lower charges, with the “Price” category peaking around $40. The “Attitude” category shows a spread of monthly charges but leans more toward lower values, suggesting that attitude-related churn may not be heavily influenced by cost.</p>
-<p>Lastly, in the third graph, “Tenure in Months vs Churn,” we observe that customers with shorter tenures are more likely to churn for “Competitor” reasons, peaking within the first 12 months. This suggests that competitors are capturing newer customers, likely offering them more attractive deals. Meanwhile, those who churn due to “Dissatisfaction” and “Attitude” show more consistent churn densities across various tenures, peaking at around 20-30 months. This could indicate that dissatisfaction and negative attitudes build over time rather than being tied to a specific stage in the customer’s journey. “Price” and “Other” categories display lower churn densities, especially at longer tenures, indicating that these reasons may be less influential as customers continue using the service.</p>
-<p>In summary, the churn patterns reveal that “Competitor” is primarily driven by higher usage, charges, and shorter tenures, while “Dissatisfaction” and “Attitude” appear to correlate with lower usage, charges, and longer customer relationships. “Price” and “Other” reasons seem to be more evenly distributed across usage and tenure, reflecting more complex and less easily categorized reasons for churn.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> City, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"City vs Churn"</span>, <span class="at">x =</span> <span class="st">"City"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cleaned_data, <span class="fu">aes</span>(<span class="at">x =</span> State, <span class="at">fill =</span> <span class="st">`</span><span class="at">Churn Category</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"State vs Churn"</span>, <span class="at">x =</span> <span class="st">"State"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="results_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -596,6 +561,7 @@ Attaching package: 'dplyr'</code></pre>
 <p>Together, these graphs suggest that while competition-related churn is a dominant factor across both cities and states, regional variations exist in churn reasons. In some cities, factors such as attitude or price issues may play a more substantial role in driving churn, while in California, churn seems to be driven by a more balanced set of reasons. This insight could help businesses tailor their strategies depending on regional differences in customer behavior.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1038,7 +1004,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/jw4651/churn/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/jw4651/churn/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jw4651/churn/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/jw4651/churn/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

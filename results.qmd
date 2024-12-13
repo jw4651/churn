@@ -1,6 +1,10 @@
 # Results
 
+## Related Packages and Data
+Before we start, let's install related packages and clean the dataset to make our exploratory process easier.
 ```{r}
+#| warning: false
+#| message: false
 # Set repository
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
@@ -8,8 +12,9 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages(c("dplyr", "readr", "naniar", "ggplot2"))
 ```
 
-
 ```{r}
+#| warning: false
+#| message: false
 # Load libraries
 library(dplyr)
 library(readr)
@@ -25,12 +30,14 @@ cleaned_data <- merged_data %>%
   filter(!is.na(`Churn Category`))
 ```
 
- After cleaning the data by removing missing values in `Churn Category`, let's have a look in the columns in the dataset.
+After cleaning the data by removing missing values in `Churn Category`, let's have a look in the columns in the dataset.
 ```{r}
 colnames(cleaned_data)
 ```
 Notice that there are too many columns in the data, we will only employ several useful variables in or exploratory data analysis.
 
+
+## Distribution of Churn
 First, let's use barplots to have a look into the distributions of `Churn Category` and `Churn Reason`.
 ```{r}
 ggplot(cleaned_data, aes(x = fct_infreq(`Churn Category`))) +
@@ -51,7 +58,7 @@ ggplot(cleaned_data, aes(x = fct_infreq(`Churn Reason_lumped`))) +
 ```
 Since we have many unique reasons in `Churn Reason` variable, we used lump to show the most 12 frequent reasons in the graph, and the rest of the reasons fall into reason other. From the graph, we can see that there are 4 competitor related reasons in the most 7 frequent reasons, including better devices, better offer, more data, and higher download speeds. Attitude of support person and provider are also frequent reasons, which is in accordance with the graph for `Churn Category`.
 
-
+## Influences on Churn Categories
 Now, let's introduce three important factors into discussion: `Internet Type`, `Contract Type`, and `Unlimited Data` (Yes or No). In hypothesis, one's churn reason may be influenced by a company's plan. We will create 3 stacked bar charts to see how `Churn Category` is influenced by those 3 factors.
 ```{r}
 # Internet Type vs Churn
@@ -76,22 +83,10 @@ ggplot(cleaned_data, aes(x = `Unlimited Data`, fill = `Churn Category`)) +
 From the 3 stacked bar charts, we can see that for most of the plans, competitor is the most category for a customer to churn. This suggests that no matter for what plans a customer is paying, they would all check other companies' plans and switch to the other if they find it more favorable. However, there is one exception: when customers choose to have None for internet type, supporter's or provider's attitudes tend to be the most reason for their churn. Price also becomes a better reason than competitor. This suggests that customers who do not care about internet in their service may pay more attention to service attitude and prices.
 
 
+## Service Related Variables and Churn
 ```{r}
-ggplot(cleaned_data, aes(x = `Monthly Charges`, fill = `Churn Category`)) +
-  geom_density(alpha = 0.6) +
-  facet_wrap(~ `Internet Type`) +
-  labs(
-    title = "Monthly Charges vs Churn Category by Internet Type",
-    x = "Monthly Charges",
-    y = "Density"
-  ) +
-  theme_minimal()
-
-```
-"Monthly Charges vs Churn Category by Internet Type" provides insights into how the monthly charges for different internet service types (Cable and DSL) vary across different churn categories. From the graph, we can observe that for Cable internet, the monthly charges are relatively flat across the different churn categories, with a slight increase for the "Fiber Optic" internet type. The monthly charges for Cable internet customers range from around 0.1 to 0.3, with the "Fiber Optic" category having the highest charges.
-For DSL internet, the monthly charges show more variation across the churn categories. The "None" category, which likely represents customers who do not churn, has the highest monthly charges, reaching around 1.5. The "Competitor" category, which represents customers who churn due to competition, has the lowest monthly charges, around 0.1. The other churn categories, such as "Attitude," "Dissatisfaction," and "Price," fall in between, with charges ranging from around 0.2 to 0.6. This suggests that for DSL internet customers, the monthly charges are closely linked to the churn category, with higher charges corresponding to the "None" category (non-churning customers) and lower charges associated with the "Competitor" category (customers who churn due to competition).
-This information could be valuable for the telecommunications company to understand how pricing strategies and service offerings might impact customer churn across different internet service types. By analyzing the relationship between monthly charges and churn categories, the company can potentially develop more targeted pricing and retention strategies to address the specific factors driving customer churn.
-```{r}
+#| warning: false
+#| message: false
 # Contract vs Tenure vs Churn Category
 ggplot(cleaned_data, aes(x = `Tenure in Months`, fill = `Churn Category`)) +
   geom_density(alpha = 0.6) +
@@ -104,7 +99,8 @@ ggplot(cleaned_data, aes(x = `Tenure in Months`, fill = `Churn Category`)) +
   theme_minimal()
 
 ```
-The graph titled "Tenure in Months vs Churn Category by Contract Type" provides valuable insights into the relationship between customer tenure and churn categories across different contract types. For the "Month-to-Month" contract, we see a wide distribution of tenure, with a peak around 10 months, indicating that many customers churn within the first year. The "One Year" contract shows a more concentrated distribution, with a peak around 12 months, suggesting customers are more likely to remain for the duration of their contract. The "Two Year" contract exhibits a bimodal distribution, with one peak around 24 months and another around 2-3 months, indicating that some customers fulfill their contract while others churn early. The different churn categories, such as "Attitude," "Competitor," "Dissatisfaction," and "Price," are represented in varying degrees across the tenure distributions, providing the telecommunications company with insights to develop targeted retention strategies based on contract length and the underlying reasons for customer churn.
+The graph titled "Tenure in Months vs Churn Category by Contract Type" provides valuable insights into the relationship between customer tenure and churn categories across different contract types. For the "Month-to-Month" contract, we see a wide distribution of tenure, with a peak around 10 months, indicating that many customers churn within the first year. The "One Year" contract shows a more concentrated distribution, with a peak above 40 months, suggesting customers are more likely to remain for the duration of their contract. The "Two Year" contract exhibits a bimodal distribution, with one peak around 24 months and another around 2-3 months, indicating that some customers fulfill their contract while others churn early. The different churn categories, such as "Attitude," "Competitor," "Dissatisfaction," and "Price," are represented in varying degrees across the tenure distributions, providing the telecommunications company with insights to develop targeted retention strategies based on contract length and the underlying reasons for customer churn.
+
 ```{r}
 ggplot(cleaned_data, aes(x = `Avg Monthly GB Download`, fill = `Churn Category`)) +
   geom_density(alpha = 0.6) +
@@ -131,6 +127,7 @@ ggplot(cleaned_data, aes(x = `Satisfaction Score`, fill = `Churn Category`)) +
 
 ```
 The graph titled "Satisfaction Score vs Churn Category by Internet Type" provides an insightful look into the relationship between customer satisfaction and the reasons for customer churn across different internet service types. For Cable internet customers, the satisfaction scores show a bimodal distribution, with peaks around 0.5 and 1.0. The "Fiber Optic" category exhibits the highest satisfaction scores, while the "None" category (likely representing non-churning customers) also has relatively high satisfaction. In contrast, the "Competitor" and "Dissatisfaction" categories show lower satisfaction scores, indicating that these factors play a significant role in driving churn for Cable customers. The DSL internet customers present a different pattern, with the "None" category again showing the highest satisfaction scores, peaking around 1.0. The other churn categories, such as "Attitude," "Competitor," and "Price," have more varied satisfaction distributions, suggesting that for DSL customers, the reasons for churn are more complex and not solely driven by satisfaction. This information can help the telecommunications company better understand the nuances of customer satisfaction and its relationship to churn across their different internet service offerings. By analyzing these insights, the company can develop more targeted retention strategies to address the specific factors influencing customer loyalty and churn.
+
 ```{r}
 ggplot(cleaned_data, aes(x = `Avg Monthly GB Download`, fill = `Churn Category`)) +
   geom_density(alpha = 0.5) +
@@ -157,12 +154,14 @@ The second graph, "Monthly Charge vs Churn," highlights a similar trend. Custome
 Lastly, in the third graph, "Tenure in Months vs Churn," we observe that customers with shorter tenures are more likely to churn for "Competitor" reasons, peaking within the first 12 months. This suggests that competitors are capturing newer customers, likely offering them more attractive deals. Meanwhile, those who churn due to "Dissatisfaction" and "Attitude" show more consistent churn densities across various tenures, peaking at around 20-30 months. This could indicate that dissatisfaction and negative attitudes build over time rather than being tied to a specific stage in the customer's journey. "Price" and "Other" categories display lower churn densities, especially at longer tenures, indicating that these reasons may be less influential as customers continue using the service.
 
 In summary, the churn patterns reveal that "Competitor" is primarily driven by higher usage, charges, and shorter tenures, while "Dissatisfaction" and "Attitude" appear to correlate with lower usage, charges, and longer customer relationships. "Price" and "Other" reasons seem to be more evenly distributed across usage and tenure, reflecting more complex and less easily categorized reasons for churn.
+
+## Geographic Variables and Churn
 ```{r}
 ggplot(cleaned_data, aes(x = City, fill = `Churn Category`)) +
   geom_bar(position = "fill") +
   coord_flip() +
   labs(title = "City vs Churn", x = "City", y = "Proportion") +
-  theme_minimal()
+  theme(axis.text.y = element_text(size = 1))
 
 ggplot(cleaned_data, aes(x = State, fill = `Churn Category`)) +
   geom_bar(position = "fill") +

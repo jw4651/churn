@@ -1,5 +1,4 @@
 # Conclusion
-### Conclusion
 
 In this research, we have explored the factors influencing customer churn within a highly competitive telecommunications industry by analyzing a dataset containing demographic, service usage, and satisfaction information. The analysis primarily aimed to address key questions, such as how demographic and service-related factors contribute to churn, the influence of customer satisfaction on retention, and any geographical trends in churn behavior.
 
